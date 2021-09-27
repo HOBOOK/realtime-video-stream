@@ -7,6 +7,7 @@
         @play="onPlayerPlay($event)"
         @ready="onPlayerReady($event)">
       </video-player> -->
+      <iframe src="http://192.168.1.110/app/live/sim/single.asp" width="1280px" height="960px"/>
       <img name="main" id="main" border="0" width="640" height="480" src="http://192.168.1.110/cgi-bin/fwstream.cgi?FwModId=0&AppKey=0x0450f000&PortId=0&PauseTime=10&FwCgiVer=0x0001">
       <!-- <div class="video-container">
         <video id="video" width="400" height="300" autoplay></video>
