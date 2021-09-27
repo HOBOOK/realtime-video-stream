@@ -1,12 +1,17 @@
 <template>
   <v-container>
     <v-row align="center" justify="center">
-      <video-player ref="videoPlayer"
+      <!-- <video-player ref="videoPlayer"
         class="vjs-custom-skin"
         :options="playerOptions"
         @play="onPlayerPlay($event)"
         @ready="onPlayerReady($event)">
-      </video-player>
+      </video-player> -->
+
+      <div class="video-container">
+        <video id="video" width="400" height="300" autoplay></video>
+        <canvas id="canvas" width="400" height="300"></canvas>
+      </div>
     </v-row>
   </v-container>
 </template>
@@ -24,8 +29,8 @@ export default {
       controlBar: {
         timeDivider: false,
         durationDisplay: false
-      }
-      // poster: 'https://surmon-china.github.io/vue-quill-editor/static/images/surmon-5.jpg'
+      },
+      poster: 'https://surmon-china.github.io/vue-quill-editor/static/images/surmon-5.jpg'
     }
   }),
   computed: {
@@ -35,12 +40,13 @@ export default {
   },
   mounted(){
     this.init()
+    this.playingVideo()
   },
   methods:{
     init() {
       const loading = this.$vs.loading()
-      const src = 'https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8'
-      this.playVideo(src)
+      const src =  'http://192.168.1.110/cgi-bin/fwstream.cgi?FwModId=0&AppKey=0x0450f000&PortId=0,1,2&PauseTime=10&FwCgiVer=0x0001'//'https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8'
+      //this.playVideo(src)
       loading.close()
     },
 
@@ -61,6 +67,38 @@ export default {
       this.player.src(video)
       // this.player.load()
       this.player.play()
+    },
+
+    playingVideo() {
+      var canvas = document.getElementById('canvas'),
+          context = canvas.getContext('2d'),
+          video = document.getElementById('video'),
+          vendorUrl = window.URL || window.webkitURL;
+        
+      navigator.getMedia = navigator.getUserMedia ||
+                            navigator.webkitGetUserMedia ||
+                            navigator.mozGetUserMedia ||
+                            navigator.msGetUserMedia;
+      navigator.getMedia({
+        video:true,
+        audio:false
+      }, (stream) => {
+        console.log(stream)
+        video.srcObject = stream
+        console.log(video)
+        video.play();
+      }, (error) =>{
+        console.log(error)
+      });
+
+      video.addEventListener('play', () => {
+        this.draw(video, context, 400, 300);
+      }, false);
+    },
+
+    draw(video, context, width, height) {
+      console.log(video)
+      context.drawImage(video, 0, 0, width, height);
     }
     
   }
@@ -74,6 +112,9 @@ export default {
   }
   .vjs-custom-skin {
     height: 60% !important;
+  }
+  video{
+    background-color: black;
   }
 </style>
 
