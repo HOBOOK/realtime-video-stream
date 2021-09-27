@@ -7,11 +7,11 @@
         @play="onPlayerPlay($event)"
         @ready="onPlayerReady($event)">
       </video-player> -->
-
-      <div class="video-container">
+      <img name="main" id="main" border="0" width="640" height="480" src="http://192.168.1.110/cgi-bin/fwstream.cgi?FwModId=0&AppKey=0x0450f000&PortId=0&PauseTime=10&FwCgiVer=0x0001">
+      <!-- <div class="video-container">
         <video id="video" width="400" height="300" autoplay></video>
         <canvas id="canvas" width="400" height="300"></canvas>
-      </div>
+      </div> -->
     </v-row>
   </v-container>
 </template>
@@ -40,7 +40,7 @@ export default {
   },
   mounted(){
     this.init()
-    this.playingVideo()
+    //this.playingVideo()
   },
   methods:{
     init() {
