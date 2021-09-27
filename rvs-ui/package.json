@@ -15,8 +15,12 @@
     "core-js": "^3.15.1",
     "material-icons": "^1.1.1",
     "nuxt": "^2.15.7",
+    "nuxt-socket-io": "^1.1.23",
+    "rtsp-ffmpeg": "^0.0.15",
+    "socket.io": "^4.2.0",
     "vue-videojs7": "^1.0.2",
-    "vuesax": "^4.0.1-alpha.25"
+    "vuesax": "^4.0.1-alpha.25",
+    "ws": "^8.2.2"
   },
   "devDependencies": {
     "fibers": "^5.0.0",

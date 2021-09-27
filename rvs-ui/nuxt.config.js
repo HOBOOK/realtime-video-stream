@@ -13,6 +13,14 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+    ],
+    script: [{
+      type: 'text/javascript', 
+      src: 'https://cdnjs.cloudflare.com/ajax/libs/jsmpeg/0.1/jsmpg.js',
+      'data-account': 'XXXXX',
+      'data-user': 'XXXXX',
+      async: true
+    }
     ]
   },
 
@@ -36,12 +44,22 @@ export default {
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     '@nuxtjs/vuetify',
+    'nuxt-socket-io',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     '@nuxtjs/axios',
+    'nuxt-socket-io',
   ],
+
+  io: {
+    // module options
+    sockets: [{
+      name: 'main',
+      url: 'http://localhost:3000'
+    }]
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {

@@ -7,16 +7,22 @@
         @play="onPlayerPlay($event)"
         @ready="onPlayerReady($event)">
       </video-player> -->
-      <iframe src="http://192.168.1.110/app/live/sim/single.asp" width="1280px" height="960px"/>
-      <img name="main" id="main" border="0" width="640" height="480" src="http://192.168.1.110/cgi-bin/fwstream.cgi?FwModId=0&AppKey=0x0450f000&PortId=0&PauseTime=10&FwCgiVer=0x0001">
+      
+      <canvas></canvas>
+
+      <!-- <iframe src="http://192.168.1.110/app/live/sim/single.asp" width="1280px" height="960px"/>
+      <video src="http://192.168.1.110/cgi-bin/fwstream.cgi?FwModId=0&AppKey=0x0450f000&PortId=0&PauseTime=10&FwCgiVer=0x0001">
+      </video>
+      <img name="main" id="main" border="0" width="640" height="480" src="http://192.168.1.110/cgi-bin/fwstream.cgi?FwModId=0&AppKey=0x0450f000&PortId=0&PauseTime=10&FwCgiVer=0x0001"> -->
       <!-- <div class="video-container">
         <video id="video" width="400" height="300" autoplay></video>
         <canvas id="canvas" width="400" height="300"></canvas>
       </div> -->
+
+
     </v-row>
   </v-container>
 </template>
-
 <script>
 export default {
   components: {
@@ -32,7 +38,8 @@ export default {
         durationDisplay: false
       },
       poster: 'https://surmon-china.github.io/vue-quill-editor/static/images/surmon-5.jpg'
-    }
+    },
+    socket:null
   }),
   computed: {
     player () {
@@ -42,12 +49,15 @@ export default {
   mounted(){
     this.init()
     //this.playingVideo()
+      var client = new WebSocket('ws://localhost:9999');
+      var canvas = document.querySelector('canvas');
+      var player = new jsmpeg(client, {
+        canvas: canvas 
+      });
   },
   methods:{
     init() {
       const loading = this.$vs.loading()
-      const src =  'http://192.168.1.110/cgi-bin/fwstream.cgi?FwModId=0&AppKey=0x0450f000&PortId=0,1,2&PauseTime=10&FwCgiVer=0x0001'//'https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8'
-      //this.playVideo(src)
       loading.close()
     },
 
